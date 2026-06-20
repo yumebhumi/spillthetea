@@ -1,9 +1,9 @@
 "use client";
 
-import { ExportResultCardHost } from "@/components/home/export-result-card-host";
+import { ExportResultCard } from "@/components/ExportResultCard";
 import type { AnalysisResult } from "@/components/home/types";
 import { motion } from "framer-motion";
-import { toBlob } from "html-to-image";
+import { toPng } from "html-to-image";
 import { useRef, useState } from "react";
 
 type ResultSectionProps = {
@@ -67,16 +67,24 @@ export function ResultSection({
       throw new Error("Run an analysis first.");
     }
 
-    const blob = await toBlob(exportCardRef.current, {
-      width: 1080,
-      height: 1080,
-      canvasWidth: 1080,
-      canvasHeight: 1080,
-      pixelRatio: 1,
+    await document.fonts.ready;
+    await new Promise((resolve) => window.setTimeout(resolve, 300));
+
+    const dataUrl = await toPng(exportCardRef.current, {
+      width: exportCardRef.current.scrollWidth,
+      height: exportCardRef.current.scrollHeight,
+      canvasWidth: exportCardRef.current.scrollWidth * 2,
+      canvasHeight: exportCardRef.current.scrollHeight * 2,
+      pixelRatio: 2,
       backgroundColor: "#F7F7F2",
+      cacheBust: true,
+      skipAutoScale: true,
     });
 
-    if (!blob) {
+    const response = await fetch(dataUrl);
+    const blob = await response.blob();
+
+    if (!blob.size) {
       throw new Error("Could not generate the report image.");
     }
 
@@ -109,7 +117,7 @@ export function ResultSection({
 
   return (
     <section id="result" className="px-0 py-8 sm:py-12 lg:py-14">
-      <ExportResultCardHost ref={exportCardRef} analysis={analysis} />
+      <ExportResultCard ref={exportCardRef} analysis={analysis} />
       <div className="page-shell">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
