@@ -65,6 +65,14 @@ export function HomePageClient() {
         body: formData,
       });
 
+      const contentType = response.headers.get("content-type") ?? "";
+
+      if (!contentType.includes("application/json")) {
+        throw new Error(
+          "The server returned an unexpected response. Refresh the page and try again.",
+        );
+      }
+
       const data = (await response.json()) as AnalyzeApiSuccess | AnalyzeApiError;
 
       if (!response.ok || !data.success) {

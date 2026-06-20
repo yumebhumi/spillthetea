@@ -112,8 +112,25 @@ export function ResultSection({
           transition={{ duration: 0.45 }}
           className="matcha-card rounded-[1.75rem] p-5 sm:rounded-[2rem] sm:p-8"
         >
-          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <div>
+          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            {analysis ? (
+              <div className="flex items-center md:justify-end">
+                <button
+                  type="button"
+                  onClick={handleDownloadImage}
+                  disabled={isSharing}
+                  aria-label="Download report image"
+                  title="Download report image"
+                  className="soft-lift flex h-12 w-12 items-center justify-center rounded-full bg-[#6b8f71] text-white transition hover:scale-[1.02] hover:bg-[#5f8165] disabled:cursor-not-allowed disabled:bg-[#a7bca9] disabled:hover:scale-100"
+                >
+                  <span className="text-xl">{isSharing ? "…" : "↓"}</span>
+                </button>
+              </div>
+            ) : null}
+          </div>
+
+          <div ref={reportRef}>
+            <div className="mb-6">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#6b8f71]">
                 Result
               </p>
@@ -131,23 +148,6 @@ export function ResultSection({
               </p>
             </div>
 
-            {analysis ? (
-              <div className="flex items-center md:justify-end">
-                  <button
-                    type="button"
-                    onClick={handleDownloadImage}
-                    disabled={isSharing}
-                    aria-label="Download report image"
-                    title="Download report image"
-                    className="soft-lift flex h-12 w-12 items-center justify-center rounded-full bg-[#6b8f71] text-white transition hover:scale-[1.02] hover:bg-[#5f8165] disabled:cursor-not-allowed disabled:bg-[#a7bca9] disabled:hover:scale-100"
-                  >
-                    <span className="text-xl">{isSharing ? "…" : "↓"}</span>
-                  </button>
-              </div>
-            ) : null}
-          </div>
-
-          <div ref={reportRef}>
             {!analysis && !isLoading && !errorMessage ? (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

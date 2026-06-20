@@ -20,7 +20,7 @@ Built to feel like overanalyzing texts with your friends in a cute matcha cafe, 
 
 - Paste chat text into a textarea
 - Upload a chat screenshot
-- Send the input to Gemini for analysis
+- Send the input to Groq for analysis
 - Get a fun structured report back
 - Download the final report as an image
 
@@ -39,7 +39,7 @@ And sometimes the chat needs a second opinion, a third opinion, and one mildly u
 - `Tailwind CSS`
 - `App Router`
 - `Framer Motion`
-- `Gemini API`
+- `Groq API`
 
 ## Project Rules
 
@@ -71,13 +71,7 @@ If `3000` is already occupied in your environment, Next may move to another port
 Create a `.env.local` file:
 
 ```bash
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-You can also use:
-
-```bash
-GOOGLE_API_KEY=your_gemini_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
 ## API
@@ -92,7 +86,7 @@ The API:
 
 - accepts chat text
 - accepts screenshot image uploads
-- supports Gemini text + image input
+- supports Groq text + image input
 - returns JSON only
 - does not store user input
 
@@ -143,7 +137,7 @@ This is a standard Next.js app, so you can deploy it anywhere that supports Next
 - Railway
 - Render
 
-Just remember to add your Gemini API key in the deployment environment variables.
+Just remember to add your Groq API key in the deployment environment variables.
 
 ## Final Note
 
