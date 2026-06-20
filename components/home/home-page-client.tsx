@@ -103,7 +103,7 @@ export function HomePageClient() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f3f1ea] text-[#384042]">
+    <main className="min-h-screen overflow-x-hidden bg-[#F7F7F2] text-[#2D3436]">
       <HeroSection />
       <ChatInputSection
         isLoading={isLoading}

@@ -110,18 +110,18 @@ export function ResultSection({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.18 }}
           transition={{ duration: 0.45 }}
-          className="matcha-card rounded-[1.75rem] p-5 sm:rounded-[2rem] sm:p-8"
+          className="matcha-card rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-8"
         >
           <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             {analysis ? (
-              <div className="flex items-center md:justify-end">
+              <div className="flex w-full items-center md:w-auto md:justify-end">
                 <button
                   type="button"
                   onClick={handleDownloadImage}
                   disabled={isSharing}
                   aria-label="Download report image"
                   title="Download report image"
-                  className="soft-lift flex h-12 w-12 items-center justify-center rounded-full bg-[#6b8f71] text-white transition hover:scale-[1.02] hover:bg-[#5f8165] disabled:cursor-not-allowed disabled:bg-[#a7bca9] disabled:hover:scale-100"
+                  className="soft-lift flex h-12 w-full items-center justify-center rounded-full bg-[#6b8f71] text-white transition hover:scale-[1.02] hover:bg-[#5f8165] disabled:cursor-not-allowed disabled:bg-[#a7bca9] disabled:hover:scale-100 md:w-12"
                 >
                   <span className="text-xl">{isSharing ? "…" : "↓"}</span>
                 </button>
@@ -134,7 +134,7 @@ export function ResultSection({
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#6b8f71]">
                 Result
               </p>
-              <h2 className="mt-3 text-[2rem] font-extrabold tracking-[-0.03em] text-[#2d3436] sm:text-4xl">
+              <h2 className="text-safe-wrap mt-3 text-3xl font-extrabold tracking-[-0.03em] text-[#2d3436] sm:text-4xl">
                 🫖 THE TEA HAS BEEN SPILLED
               </h2>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-[#5f6668] sm:text-base">
@@ -169,7 +169,7 @@ export function ResultSection({
               </motion.div>
             ) : null}
 
-            <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {scoreCards.map((card, index) => (
                 <motion.article
                   key={card.title}
@@ -194,7 +194,7 @@ export function ResultSection({
               ))}
             </div>
 
-            <div className="mt-4 grid gap-4 xl:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-2">
               {flagCards.map((card, index) => (
                 <motion.article
                   key={card.title}
@@ -210,12 +210,12 @@ export function ResultSection({
                     <h3 className="text-lg font-bold text-[#2d3436]">{card.title}</h3>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <div className="mt-4 flex flex-wrap gap-2 overflow-hidden">
                     {card.items.length > 0 ? (
                       card.items.map((item) => (
                         <span
                           key={item}
-                          className="rounded-full border border-[#e2d5cb] bg-[#f5f0ea] px-3 py-2 text-sm text-[#495255]"
+                          className="text-safe-wrap max-w-full rounded-full border border-[#e2d5cb] bg-[#f5f0ea] px-3 py-2 text-sm text-[#495255]"
                         >
                           {item}
                         </span>
@@ -230,7 +230,7 @@ export function ResultSection({
               ))}
             </div>
 
-            <div className="mt-4 grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+            <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-[1.1fr_0.9fr]">
               <motion.article
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -255,13 +255,13 @@ export function ResultSection({
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.35, delay: 0.36 }}
                 whileHover={{ y: -4 }}
-                className="result-card rounded-[1.35rem] border border-[#e2d5cb] bg-[#f6eee7] p-4 shadow-[0_18px_40px_rgba(92,112,97,0.05)] sm:rounded-[1.5rem] sm:p-6"
+                className="result-card rounded-[1.35rem] border border-[#e2d5cb] bg-[#ffffff] p-4 shadow-[0_18px_40px_rgba(92,112,97,0.05)] sm:rounded-[1.5rem] sm:p-6"
               >
                 <h3 className="flex items-center gap-3 text-lg font-bold text-[#2d3436]">
                   <span className="text-2xl">💬</span>
                   Best Reply
                 </h3>
-                <p className="mt-4 rounded-[1.25rem] bg-[#fcfaf6] px-4 py-4 text-sm leading-7 text-[#3f4749] shadow-sm">
+                <p className="text-safe-wrap mt-4 rounded-[1.25rem] bg-[#ffffff] px-4 py-4 text-sm leading-7 text-[#3f4749] shadow-sm">
                   {analysis?.bestReply ??
                     "A playful reply suggestion will appear here after analysis."}
                 </p>
@@ -274,7 +274,7 @@ export function ResultSection({
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.35, delay: 0.42 }}
               whileHover={{ y: -4 }}
-              className="result-card mt-4 rounded-[1.35rem] border border-[#d9c8bb] bg-[#edf2e7] p-4 shadow-[0_18px_40px_rgba(92,112,97,0.05)] sm:rounded-[1.5rem] sm:p-6"
+              className="result-card mt-4 rounded-[1.35rem] border border-[#d9c8bb] bg-[#ffffff] p-4 shadow-[0_18px_40px_rgba(92,112,97,0.05)] sm:rounded-[1.5rem] sm:p-6"
             >
               <h3 className="flex items-center gap-3 text-lg font-bold text-[#2d3436]">
                 <span className="text-2xl">🫖</span>

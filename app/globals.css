@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  --background: #f3f1ea;
+  --background: #f7f7f2;
   --primary: #6b8f71;
   --accent: #ddbea9;
-  --card: #fcfaf6;
-  --text: #384042;
+  --card: #ffffff;
+  --text: #2d3436;
   --border: rgba(221, 190, 169, 0.34);
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -34,20 +34,23 @@ body {
   box-sizing: border-box;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
 .page-shell {
-  width: min(1120px, calc(100% - 1.5rem));
+  width: 100%;
+  max-width: 72rem;
   margin: 0 auto;
-}
-
-@media (min-width: 640px) {
-  .page-shell {
-    width: min(1120px, calc(100% - 3rem));
-  }
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @keyframes float-up {
@@ -70,6 +73,7 @@ a {
   background: var(--card);
   border: 1px solid var(--border);
   box-shadow: 0 16px 34px rgba(92, 112, 97, 0.06);
+  overflow: hidden;
 }
 
 .matcha-outline {
@@ -100,6 +104,25 @@ a {
   position: absolute;
   border-radius: 999px;
   filter: blur(2px);
+}
+
+.text-safe-wrap {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (min-width: 640px) {
+  .page-shell {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-shell {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

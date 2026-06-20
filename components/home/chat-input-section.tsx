@@ -82,13 +82,13 @@ export function ChatInputSection({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.45 }}
-          className="matcha-card rounded-[1.75rem] p-5 sm:rounded-[2rem] sm:p-8"
+          className="matcha-card rounded-[1.5rem] p-4 sm:rounded-[2rem] sm:p-8"
         >
           <div className="mb-6">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#6b8f71]">
               Chat Input
             </p>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.03em] text-[#2d3436] sm:text-4xl">
+            <h2 className="text-safe-wrap mt-3 text-2xl font-extrabold tracking-[-0.03em] text-[#2d3436] sm:text-4xl">
               Add chat text or a chat screenshot
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-[#5f6668] sm:text-base">
@@ -97,7 +97,7 @@ export function ChatInputSection({
             </p>
           </div>
 
-          <div className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
+          <div className="grid grid-cols-1 gap-5 xl:grid-cols-[1.15fr_0.85fr]">
             <motion.div
               whileHover={{ y: -3 }}
               transition={{ duration: 0.18 }}
@@ -115,7 +115,7 @@ export function ChatInputSection({
                 placeholder="Paste chat text here..."
                 value={chatText}
                 onChange={(event) => setChatText(event.target.value)}
-                className="w-full resize-none rounded-[1.2rem] border border-[#e2d9cf] bg-[#fcfaf6] px-4 py-4 text-base text-[#384042] outline-none transition placeholder:text-[#98a0a2] focus:border-[#6b8f71] focus:ring-4 focus:ring-[#6b8f71]/10 sm:rounded-[1.35rem] sm:px-5"
+                className="w-full max-w-full resize-none rounded-[1.2rem] border border-[#e2d9cf] bg-[#ffffff] px-4 py-4 text-base text-[#2D3436] outline-none transition placeholder:text-[#98a0a2] focus:border-[#6b8f71] focus:ring-4 focus:ring-[#6b8f71]/10 sm:rounded-[1.35rem] sm:px-5"
               />
 
               <div className="mt-4 flex flex-col gap-3 sm:flex-row">
@@ -123,7 +123,7 @@ export function ChatInputSection({
                   type="button"
                   onClick={handleAnalyzeClick}
                   disabled={!hasContent || isLoading}
-                  className="soft-lift rounded-full bg-[#6b8f71] px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.02] hover:bg-[#5f8165] disabled:cursor-not-allowed disabled:bg-[#a7bca9] disabled:hover:scale-100"
+                  className="soft-lift w-full rounded-full bg-[#6b8f71] px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.02] hover:bg-[#5f8165] disabled:cursor-not-allowed disabled:bg-[#a7bca9] disabled:hover:scale-100 sm:w-auto"
                 >
                   {isLoading ? "Analyzing..." : "Analyze"}
                 </button>
@@ -131,7 +131,7 @@ export function ChatInputSection({
                   type="button"
                   onClick={handleClearAll}
                   disabled={isLoading}
-                  className="soft-lift rounded-full border border-[#d9c8bb] bg-[#fcfaf6] px-5 py-3 text-sm font-semibold text-[#384042] transition hover:scale-[1.02] hover:bg-[#f5f0ea]"
+                  className="soft-lift w-full rounded-full border border-[#d9c8bb] bg-[#ffffff] px-5 py-3 text-sm font-semibold text-[#2D3436] transition hover:scale-[1.02] hover:bg-[#f5f0ea] sm:w-auto"
                 >
                   Reset
                 </button>
@@ -164,7 +164,7 @@ export function ChatInputSection({
                     type="button"
                     onClick={handleRemoveImage}
                     disabled={isLoading}
-                    className="soft-lift rounded-full border border-[#d9c8bb] bg-[#fcfaf6] px-4 py-2 text-xs font-semibold text-[#384042] transition hover:scale-[1.02] hover:bg-[#f5f0ea]"
+                    className="soft-lift rounded-full border border-[#d9c8bb] bg-[#ffffff] px-4 py-2 text-xs font-semibold text-[#2D3436] transition hover:scale-[1.02] hover:bg-[#f5f0ea]"
                   >
                     Remove Image
                   </button>
@@ -183,20 +183,20 @@ export function ChatInputSection({
 
               <label
                 htmlFor="screenshot-upload"
-                className="mt-4 flex min-h-[220px] cursor-pointer items-center justify-center rounded-[1.35rem] border border-dashed border-[#cfdacb] bg-[#eef2e7] p-4 text-center transition hover:bg-[#e8ede0] sm:min-h-[260px] sm:rounded-[1.5rem] sm:p-5"
+                className="mt-4 flex min-h-[220px] w-full max-w-full cursor-pointer items-center justify-center overflow-hidden rounded-[1.35rem] border border-dashed border-[#cfdacb] bg-[#eef2e7] p-4 text-center transition hover:bg-[#e8ede0] sm:min-h-[260px] sm:rounded-[1.5rem] sm:p-5"
               >
                 {imagePreviewUrl ? (
-                  <div className="w-full">
-                    <div className="matcha-card relative mx-auto min-h-[320px] w-full max-w-[320px] overflow-hidden rounded-[1.25rem] bg-[#fcfaf6] p-3 sm:min-h-[420px] sm:max-w-[380px] sm:rounded-[1.5rem]">
+                  <div className="w-full max-w-full">
+                    <div className="matcha-card relative mx-auto min-h-[240px] w-full max-w-full overflow-hidden rounded-[1.25rem] bg-[#ffffff] p-2 sm:min-h-[320px] sm:max-w-[380px] sm:rounded-[1.5rem] sm:p-3">
                       <Image
                         src={imagePreviewUrl}
                         alt="Uploaded screenshot preview"
                         fill
-                        className="object-contain p-3"
+                        className="object-contain p-2 sm:p-3"
                         unoptimized
                       />
                     </div>
-                    <p className="mt-4 text-sm font-semibold text-[#2d3436]">
+                    <p className="text-safe-wrap mt-4 text-sm font-semibold text-[#2d3436]">
                       {selectedImage?.name}
                     </p>
                     <p className="mt-1 text-xs leading-6 text-[#788082]">
