@@ -91,6 +91,8 @@ function getPrompt(chatText: string) {
     "- If the chat seems sensitive, keep the response gentle and safe",
     "- If the screenshot is unclear, say so gently in vibeSummary instead of inventing details",
     "- Return only valid JSON with no markdown fences or extra text",
+    "- Always include at least 1 red flag and 1 green flag when there is enough visible context",
+    "- Keep each redFlags and greenFlags item short, specific, and plain text",
     'Return JSON in this exact shape: {"teaStrength": number, "flirtingScore": number, "ghostingRisk": "Low" | "Medium" | "High", "deluluLevel": "Low" | "Medium" | "High", "redFlags": string[], "greenFlags": string[], "vibeSummary": string, "bestReply": string, "finalVerdict": string}',
     "- Use integers from 0 to 100 for teaStrength and flirtingScore",
     trimmedChatText ? `Chat text:\n${trimmedChatText}` : "No chat text was provided.",
@@ -192,37 +194,70 @@ function normalizeScore(value: unknown) {
 }
 
 function normalizeStringArray(value: unknown) {
-  if (!Array.isArray(value)) {
+  if (Array.isArray(value)) {
+    return value
+      .filter((item): item is string => typeof item === "string")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value !== "string") {
     return [];
   }
 
-  return value.filter((item): item is string => typeof item === "string");
+  return value
+    .split(/\r?\n|[;,•·]/)
+    .map((item) => item.replace(/^[-*]\s*/, "").trim())
+    .filter(Boolean);
 }
 
 function normalizeString(value: unknown, fallback: string) {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
 }
 
+function getObjectValue(
+  object: Record<string, unknown>,
+  keys: string[],
+) {
+  for (const key of keys) {
+    const value = object[key];
+
+    if (value !== undefined) {
+      return value;
+    }
+  }
+
+  return undefined;
+}
+
 function parseAnalysis(rawText: string): AnalyzeSuccessResponse["analysis"] {
   const parsed = JSON.parse(rawText) as Record<string, unknown>;
 
   return {
-    teaStrength: normalizeScore(parsed.teaStrength),
-    flirtingScore: normalizeScore(parsed.flirtingScore),
-    ghostingRisk: normalizeRisk(parsed.ghostingRisk),
-    deluluLevel: normalizeRisk(parsed.deluluLevel),
-    redFlags: normalizeStringArray(parsed.redFlags),
-    greenFlags: normalizeStringArray(parsed.greenFlags),
+    teaStrength: normalizeScore(getObjectValue(parsed, ["teaStrength", "tea_strength"])),
+    flirtingScore: normalizeScore(
+      getObjectValue(parsed, ["flirtingScore", "flirting_score"]),
+    ),
+    ghostingRisk: normalizeRisk(
+      getObjectValue(parsed, ["ghostingRisk", "ghosting_risk"]),
+    ),
+    deluluLevel: normalizeRisk(
+      getObjectValue(parsed, ["deluluLevel", "delulu_level"]),
+    ),
+    redFlags: normalizeStringArray(getObjectValue(parsed, ["redFlags", "red_flags"])),
+    greenFlags: normalizeStringArray(
+      getObjectValue(parsed, ["greenFlags", "green_flags"]),
+    ),
     vibeSummary: normalizeString(
-      parsed.vibeSummary,
+      getObjectValue(parsed, ["vibeSummary", "vibe_summary"]),
       "The vibe is a little unclear, but there is definitely something to overthink here.",
     ),
     bestReply: normalizeString(
-      parsed.bestReply,
+      getObjectValue(parsed, ["bestReply", "best_reply"]),
       "Keep it chill and reply with something simple and honest.",
     ),
     finalVerdict: normalizeString(
-      parsed.finalVerdict,
+      getObjectValue(parsed, ["finalVerdict", "final_verdict"]),
       "Mildly suspicious, mildly interesting, and worth one eyebrow raise.",
     ),
   };
