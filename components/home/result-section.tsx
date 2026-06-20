@@ -1,5 +1,6 @@
 "use client";
 
+import { ExportResultCardHost } from "@/components/home/export-result-card-host";
 import type { AnalysisResult } from "@/components/home/types";
 import { motion } from "framer-motion";
 import { toBlob } from "html-to-image";
@@ -18,7 +19,7 @@ export function ResultSection({
   loadingMessage,
   errorMessage,
 }: ResultSectionProps) {
-  const reportRef = useRef<HTMLDivElement | null>(null);
+  const exportCardRef = useRef<HTMLDivElement | null>(null);
   const [isSharing, setIsSharing] = useState(false);
 
   const scoreCards = [
@@ -62,13 +63,17 @@ export function ResultSection({
   ];
 
   async function buildReportFile() {
-    if (!reportRef.current || !analysis) {
+    if (!exportCardRef.current || !analysis) {
       throw new Error("Run an analysis first.");
     }
 
-    const blob = await toBlob(reportRef.current, {
-      backgroundColor: "#f3f1ea",
-      pixelRatio: 2,
+    const blob = await toBlob(exportCardRef.current, {
+      width: 1080,
+      height: 1080,
+      canvasWidth: 1080,
+      canvasHeight: 1080,
+      pixelRatio: 1,
+      backgroundColor: "#F7F7F2",
     });
 
     if (!blob) {
@@ -104,6 +109,7 @@ export function ResultSection({
 
   return (
     <section id="result" className="px-0 py-8 sm:py-12 lg:py-14">
+      <ExportResultCardHost ref={exportCardRef} analysis={analysis} />
       <div className="page-shell">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
@@ -129,7 +135,7 @@ export function ResultSection({
             ) : null}
           </div>
 
-          <div ref={reportRef}>
+          <div>
             <div className="mb-6">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#6b8f71]">
                 Result
