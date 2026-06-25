@@ -128,7 +128,7 @@ export function HeroSection() {
                         {card.icon}
                       </div>
                       <p className="text-sm font-semibold text-[#5e6668]">{card.label}</p>
-                      <p className="text-safe-wrap mt-auto pt-3 text-[1.35rem] font-extrabold leading-[0.95] tracking-[-0.05em] text-[#2d3436] sm:text-[1.55rem]">
+                      <p className="mt-auto pt-3 text-[1.3rem] font-extrabold leading-[0.95] tracking-[-0.05em] text-[#2d3436] sm:text-[1.5rem]">
                         {card.value}
                       </p>
                     </motion.article>
