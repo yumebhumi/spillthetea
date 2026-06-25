@@ -122,13 +122,13 @@ export function HeroSection() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.32, delay: 0.2 + index * 0.05 }}
                       whileHover={{ y: -3 }}
-                      className="result-card rounded-[1.35rem] bg-[#ffffff] p-4 shadow-[0_10px_24px_rgba(92,112,97,0.05)] sm:rounded-[1.5rem]"
+                      className="result-card flex min-h-[13rem] flex-col rounded-[1.35rem] bg-[#ffffff] p-4 shadow-[0_10px_24px_rgba(92,112,97,0.05)] sm:rounded-[1.5rem]"
                     >
                       <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-[#edf2e7] text-xl">
                         {card.icon}
                       </div>
                       <p className="text-sm font-semibold text-[#5e6668]">{card.label}</p>
-                      <p className="mt-2 text-[1.45rem] font-extrabold tracking-[-0.04em] text-[#2d3436] sm:text-[1.7rem]">
+                      <p className="text-safe-wrap mt-auto pt-3 text-[1.35rem] font-extrabold leading-[0.95] tracking-[-0.05em] text-[#2d3436] sm:text-[1.55rem]">
                         {card.value}
                       </p>
                     </motion.article>
